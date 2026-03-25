@@ -1,0 +1,17 @@
+When using python:
+- Use uv.
+- Use uv add for dependencies, uv add --dev for dev dependencies, or uv add --script for script dependencies.
+- Use uv run to run a command in the project environment over using activating the venv.
+- Always prefer polars to pandas.
+- Use typehinting wherever possible. For union types use the style x | y instead of Union\[x, y\].
+- Use trio as the default async runtime.
+- Use dataclasses.
+- Use match/case structures over if/elif/else.
+- Use pytest for testing with pytest-trio for async tests.
+- Use ruff for linting and formatting.
+- Use ty for type checking.
+- Define custom exception hierachies per domain, don't use bare Exception.
+- Use FastAPI with uvicorn for APIs.
+- Use structlog or stdlib logging with a structured formatter.
+- Use a dataclass that reads from os.environ for configuration, load secrets in with dotenv.
+- Use httpx for http requests. 

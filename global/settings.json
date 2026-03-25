@@ -1,0 +1,199 @@
+{
+  "cleanupPeriodDays": 9999,
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "sandbox": {
+    "enabled": true,
+    "filesystem": {
+      "allowRead": ["."],
+      "denyRead": [
+        ".env",
+        ".env.local",
+        ".env.production",
+        ".env.staging",
+        ".env.development",
+        "**/.env",
+        "**/.env.*"
+      ]
+    }
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "notify-send 'Claude Code' 'Claude Code needs your attention'"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+        {
+          "matcher": "Bash",
+          "hooks": [
+            {
+              "type": "command",
+              "command": "~/.claude/hooks/check-git-branch.sh"
+            }
+          ]
+        }
+      ]
+  },
+  "enabledPlugins": {
+    "rust-analyzer-lsp@claude-plugins-official": true
+  },
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "high",
+  "permissions": {
+    "allow": [
+      "___FILESYSTEM_NAVIGATION___",
+      "Bash(ls*)",
+      "Bash(cat*)",
+      "Bash(head*)",
+      "Bash(tail*)",
+      "Bash(tree*)",
+      "Bash(find*)",
+      "Bash(fd*)",
+      "Bash(grep*)",
+      "Bash(rg*)",
+      "Bash(wc*)",
+      "Bash(diff*)",
+      "Bash(which*)",
+      "Bash(echo*)",
+      "Bash(dirname*)",
+      "Bash(basename*)",
+      "Bash(realpath*)",
+
+      "___FILE_MANIPULATION___",
+      "Bash(mkdir*)",
+      "Bash(touch*)",
+      "Bash(sort*)",
+      "Bash(uniq*)",
+      "Bash(cp*)",
+      "Bash(mv*)",
+      "Bash(awk*)",
+      "Bash(sed*)",
+      "Bash(jq*)",
+
+      "___READ_EDIT___",
+      "Read(/src/**)",
+      "Read(/tests/**)",
+      "Read(/docs/**)",
+      "Edit(/src/**)",
+      "Edit(/tests/**)",
+      "Edit(/docs/**)",
+      "Read(Cargo.toml)",
+      "Read(Cargo.lock)",
+      "Read(pyproject.toml)",
+      "Read(package.json)",
+      "Read(tsconfig.json)",
+      "Edit(tsconfig.json)",
+      "Edit(package.json)",
+
+      "___GIT___",
+      "Bash(git status)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git fetch*)",
+      "Bash(git pull*)",
+      "Bash(git branch*)",
+      "Bash(git checkout*)",
+      "Bash(git stash*)",
+      "Bash(git worktree*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git push*)",
+      "Bash(git show*)",
+
+      "___GITHUB_CLI___",
+      "Bash(gh pr create*)",
+      "Bash(gh pr list*)",
+      "Bash(gh pr view*)",
+
+      "___RUST___",
+      "Bash(cargo run*)",
+      "Bash(cargo build*)",
+      "Bash(cargo test*)",
+      "Bash(cargo fmt*)",
+      "Bash(cargo clippy*)",
+      "Bash(cargo add*)",
+      "Bash(cargo tree*)",
+
+      "___PYTHON___",
+      "Bash(uv add*)",
+      "Bash(uv sync*)",
+      "Bash(uv run pytest*)",
+      "Bash(uv run python*)",
+      "Bash(uv pip install*)",
+      "Bash(uvx ruff*)",
+
+      "___NODE_PNPM___",
+      "Bash(pnpm install*)",
+      "Bash(pnpm add*)",
+      "Bash(pnpm remove*)",
+      "Bash(pnpm run*)",
+      "Bash(pnpm test*)",
+      "Bash(pnpm build*)",
+      "Bash(pnpm lint*)",
+      "Bash(pnpm dev*)",
+      "Bash(pnpm typecheck*)",
+      "Bash(pnpm exec*)",
+      "Bash(pnpm dlx*)",
+      "Bash(pnpm patch *)",
+      "Bash(pnpm patch-commit *)",
+      "Bash(pnpm patch-remove *)",
+
+      "___WEB___",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:doc.rust-lang.org)",
+      "WebFetch(domain:docs.rs)",
+      "WebFetch(domain:developer.mozilla.org)",
+      "WebFetch(domain:npmjs.com)"
+    ],
+    "deny": [
+      "___LOCKFILES___",
+      "Edit(*.lock)",
+      "Edit(pnpm-lock.yaml)",
+
+      "___PUBLISHING___",
+      "Bash(cargo publish*)",
+      "Bash(pnpm publish*)",
+
+      "___DESTRUCTIVE_FILESYSTEM___",
+      "Bash(rm -rf*)",
+
+      "___SHELL_ESCAPE_HATCHES___",
+      "Bash(eval*)",
+      "Bash(bash -c*)",
+      "Bash(sh -c*)",
+      "Bash(sudo*)",
+
+      "___GIT_HISTORY_REWRITING___",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git rebase*)",
+      "Bash(git reset --hard*)",
+      "Bash(git reset --mixed*)",
+      "Bash(git commit*--amend*)",
+      "Bash(git clean*)",
+
+      "___GIT_BRANCH_PROTECTION___",
+      "Bash(git push*main*)",
+      "Bash(git push*master*)",
+      "Bash(git branch -D*)",
+      "Bash(git merge*)",
+      "Bash(git add .)",
+      "Bash(git tag*)",
+      "Bash(git remote*)",
+
+      "___GIT_INTERNALS___",
+      "Bash(git filter-branch*)",
+      "Bash(git reflog expire*)",
+      "Bash(git gc --prune*)"
+    ]
+  }
+}
