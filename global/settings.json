@@ -28,9 +28,15 @@
         ".env.local",
         ".env.production",
         ".env.staging",
-        ".env.development",
-        "**/.env",
-        "**/.env.*"
+        ".env.development"
+      ],
+      "denyWrite": [
+        "~/.claude/CLAUDE.md",
+        "~/.claude/settings.json",
+        "~/.claude/settings.local.json",
+        ".claude/settings.json",
+        ".claude/settings.local.json",
+        ".claude/CLAUDE.md"
       ]
     }
   },
@@ -197,8 +203,6 @@
       "Bash(git clean*)",
 
       "___GIT_BRANCH_PROTECTION___",
-      "Bash(git push*main*)",
-      "Bash(git push*master*)",
       "Bash(git branch -D*)",
       "Bash(git merge*)",
       "Bash(git add .)",
@@ -208,7 +212,38 @@
       "___GIT_INTERNALS___",
       "Bash(git filter-branch*)",
       "Bash(git reflog expire*)",
-      "Bash(git gc --prune*)"
+      "Bash(git gc --prune*)",
+
+      "___SECRETS___",
+      "Read(/**/.env)",
+      "Read(/**/.env.*)",
+      "Write(/**/.env)",
+      "Write(/**/.env.*)",
+      "Edit(/**/.env)",
+      "Edit(/**/.env.*)",
+      "Read(/**/*.pem)",
+      "Read(/**/*.key)",
+      "Write(/**/*.pem)",
+      "Write(/**/*.key)",
+      "Edit(/**/*.pem)",
+      "Edit(/**/*.key)",
+      "Read(/**/.npmrc)",
+      "Write(/**/.npmrc)",
+      "Edit(/**/.npmrc)",
+      "Read(/**/.netrc)",
+      "Write(/**/.netrc)",
+      "Edit(/**/.netrc)",
+      "Read(/**/credentials.json)",
+      "Write(/**/credentials.json)",
+      "Edit(/**/credentials.json)",
+
+      "___CLAUDE_SETTINGS___",
+      "Write(~/.claude/CLAUDE.md)",
+      "Write(~/.claude/settings.json)",
+      "Write(~/.claude/settings.local.json)",
+      "Edit(~/.claude/CLAUDE.md)",
+      "Edit(~/.claude/settings.json)",
+      "Edit(~/.claude/settings.local.json)"
     ]
   }
 }
