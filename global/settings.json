@@ -6,6 +6,21 @@
   },
   "sandbox": {
     "enabled": true,
+    "allowedHosts": [
+      "github.com",
+      "api.github.com",
+      "raw.githubusercontent.com",
+      "rust-lang.org",
+      "docs.rs",
+      "crates.io",
+      "static.crates.io",
+      "index.crates.io",
+      "npmjs.com",
+      "registry.npmjs.org",
+      "pypi.org",
+      "files.pythonhosted.org",
+      "mozilla.org"
+    ],
     "filesystem": {
       "allowRead": ["."],
       "denyRead": [
