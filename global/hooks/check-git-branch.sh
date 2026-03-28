@@ -77,7 +77,7 @@ else
       TARGET_BRANCHES+=("$REFSPEC")
     fi
   done
-done
+fi
 
 # Check each target branch against the protected list
 for target in "${TARGET_BRANCHES[@]}"; do
