@@ -7,7 +7,7 @@ When using python:
 - Use trio as the default async runtime.
 - Use dataclasses.
 - Use match/case structures over if/elif/else.
-- Use pytest for testing with pytest-trio for async tests.
+- Use pytest for testing with pytest-trio for async tests. Use uv run pytest.
 - Use ruff for linting and formatting.
 - Use ty for type checking.
 - Define custom exception hierachies per domain, don't use bare Exception.
