@@ -23,12 +23,24 @@
     ],
     "filesystem": {
       "allowRead": ["."],
+      "allowWrite": [
+        ".",
+        "/home/nymph/.git-credentials",
+        "/home/nymph/.git-credentials.lock"
+      ],
       "denyRead": [
         ".env",
         ".env.local",
         ".env.production",
         ".env.staging",
-        ".env.development"
+        ".env.development",
+        "**/.env",
+        "**/.env.*",
+        "**/*.pem",
+        "**/*.key",
+        "**/.npmrc",
+        "**/.netrc",
+        "**/credentials.json"
       ],
       "denyWrite": [
         "~/.claude/CLAUDE.md",
@@ -36,7 +48,16 @@
         "~/.claude/settings.local.json",
         ".claude/settings.json",
         ".claude/settings.local.json",
-        ".claude/CLAUDE.md"
+        ".claude/CLAUDE.md",
+        "*.lock",
+        "pnpm-lock.yaml",
+        "**/.env",
+        "**/.env.*",
+        "**/*.pem",
+        "**/*.key",
+        "**/.npmrc",
+        "**/.netrc",
+        "**/credentials.json"
       ]
     }
   },
@@ -151,6 +172,7 @@
       "Bash(uv run python*)",
       "Bash(uv pip install*)",
       "Bash(uvx ruff*)",
+      "Bash(.venv/bin/python -m pytest*)",
 
       "___NODE_PNPM___",
       "Bash(pnpm install*)",
@@ -176,10 +198,6 @@
       "WebFetch(domain:npmjs.com)"
     ],
     "deny": [
-      "___LOCKFILES___",
-      "Edit(*.lock)",
-      "Edit(pnpm-lock.yaml)",
-
       "___PUBLISHING___",
       "Bash(cargo publish*)",
       "Bash(pnpm publish*)",
@@ -213,29 +231,6 @@
       "Bash(git filter-branch*)",
       "Bash(git reflog expire*)",
       "Bash(git gc --prune*)",
-
-      "___SECRETS___",
-      "Read(/**/.env)",
-      "Read(/**/.env.*)",
-      "Write(/**/.env)",
-      "Write(/**/.env.*)",
-      "Edit(/**/.env)",
-      "Edit(/**/.env.*)",
-      "Read(/**/*.pem)",
-      "Read(/**/*.key)",
-      "Write(/**/*.pem)",
-      "Write(/**/*.key)",
-      "Edit(/**/*.pem)",
-      "Edit(/**/*.key)",
-      "Read(/**/.npmrc)",
-      "Write(/**/.npmrc)",
-      "Edit(/**/.npmrc)",
-      "Read(/**/.netrc)",
-      "Write(/**/.netrc)",
-      "Edit(/**/.netrc)",
-      "Read(/**/credentials.json)",
-      "Write(/**/credentials.json)",
-      "Edit(/**/credentials.json)",
 
       "___CLAUDE_SETTINGS___",
       "Write(~/.claude/CLAUDE.md)",
