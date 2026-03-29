@@ -150,6 +150,12 @@
       "Bash(git commit*)",
       "Bash(git push*)",
       "Bash(git show*)",
+      "Bash(git remote -v*)",
+      "Bash(git remote show*)",
+      "Bash(git remote get-url*)",
+      "Bash(git tag -l*)",
+      "Bash(git tag --list*)",
+      "Bash(git merge*)",
 
       "___GITHUB_CLI___",
       "Bash(gh pr create*)",
@@ -203,7 +209,9 @@
       "Bash(pnpm publish*)",
 
       "___DESTRUCTIVE_FILESYSTEM___",
-      "Bash(rm -rf*)",
+      "Bash(rm -r*)",
+      "Bash(chmod*)",
+      "Bash(chown*)",
 
       "___SHELL_ESCAPE_HATCHES___",
       "Bash(eval*)",
@@ -222,10 +230,15 @@
 
       "___GIT_BRANCH_PROTECTION___",
       "Bash(git branch -D*)",
-      "Bash(git merge*)",
       "Bash(git add .)",
-      "Bash(git tag*)",
-      "Bash(git remote*)",
+      "Bash(git add -A*)",
+      "Bash(git commit -a*)",
+      "Bash(git remote add*)",
+      "Bash(git remote remove*)",
+      "Bash(git remote rename*)",
+      "Bash(git remote set-url*)",
+      "Bash(git remote set-head*)",
+      "Bash(git remote prune*)",
 
       "___GIT_INTERNALS___",
       "Bash(git filter-branch*)",

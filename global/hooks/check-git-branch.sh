@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# PreToolUse hook: prevents pushing to protected branches.
-# Parses the git push command to determine the actual target branch
-# rather than relying on wildcard deny rules.
+# PreToolUse hook: prevents destructive git operations on protected branches.
+# - Blocks git push to protected branches
+# - Blocks git merge while on a protected branch
 
 if ! command -v jq &>/dev/null; then
   echo '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":"Hook error: jq not installed. Cannot verify branch safety."}}'
@@ -16,12 +16,32 @@ if [ -z "$COMMAND" ]; then
   exit 0
 fi
 
-# Only check commands that start with git push
-if ! echo "$COMMAND" | grep -qE '^\s*git\s+push\b'; then
+PROTECTED_BRANCHES=("main" "master" "production")
+
+# --- Check: git merge on a protected branch ---
+if echo "$COMMAND" | grep -qE '^\s*git\s+merge\b'; then
+  CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+  for protected in "${PROTECTED_BRANCHES[@]}"; do
+    if [[ "$CURRENT_BRANCH" == "$protected" ]]; then
+      cat <<DENY
+{
+  "hookSpecificOutput": {
+    "hookEventName": "PreToolUse",
+    "permissionDecision": "deny",
+    "permissionDecisionReason": "Cannot merge into protected branch: $CURRENT_BRANCH. Switch to a feature branch first."
+  }
+}
+DENY
+      exit 0
+    fi
+  done
   exit 0
 fi
 
-PROTECTED_BRANCHES=("main" "master" "production")
+# --- Check: git push to a protected branch ---
+if ! echo "$COMMAND" | grep -qE '^\s*git\s+push\b'; then
+  exit 0
+fi
 
 # Strip 'git push' prefix and trailing whitespace
 ARGS=$(echo "$COMMAND" | sed -E 's/^\s*git\s+push\s*//' | sed -E 's/\s*$//')

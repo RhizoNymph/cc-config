@@ -2,7 +2,7 @@ When using rust:
 - Use cargo add/remove over manually editing the Cargo.toml file. cargo add -F feature1,feature2 will activate features.
 - Don't use unwrap and handle all error cases.
 - Use anyhow for application level error handling.
-- Use thiserror for library level error hanlding
+- Use thiserror for library level error handling
 - Use serde for serialization/deserialization, with serde_json and serde_yaml where necessary.
 - Use sqlx for SQL operations, use the tls-rustls feature for tls and postgres/sqlite features depending on what database you are targeting.
 - Use cargo clippy and cargo fmt before committing. 
@@ -13,4 +13,4 @@ When using rust:
 - Create custom structs and use serde-json and serde-envfile for configuration management.
 - Use tokio as the default async runtime, with the rt-multi-thread runtime feature for the multi-threaded work-stealing scheduler. Use the macros feature for #\[tokio::main\] and #\[tokio::test\]. Use the following features where appropriate: fs for tokio::fs types, sync for tokio::sync types, time for tokio::time types, and net for tokio::net types like TcpStream/UdpSocket/etc.
 - Use reqwest for http requests.
-- Use rayon for data parellism.
+- Use rayon for data parallelism.
