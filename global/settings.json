@@ -4,6 +4,9 @@
     "commit": "",
     "pr": ""
   },
+  "env": {
+    "DISABLE_AUTOUPDATER": "1"
+  },
   "sandbox": {
     "enabled": true,
     "allowedHosts": [
