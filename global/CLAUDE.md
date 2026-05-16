@@ -36,8 +36,10 @@ Update docs/OVERVIEW.md and relevant feature docs with every change.
 - Never work on main unless specified.
 - Branch prefixes: fix/, feat/, chore/, release/, docs/, test/
 - Publish branches and open PRs; don't merge to main locally. Let the user merge.
-- Commit messages: short, one-line, descriptive (e.g. "feat: add api support for steering").
-- PR bodies: what changed and why. No test/verify section.
+- Commit messages: short, one-line, descriptive (e.g. "feat: add api support for steering"). Do not mention AI assistance being used.
+- PR bodies: what changed and why. No test/verify section. Do not mention AI assistance being used.
+- Always prefer worktrees with branches named after the function of the set of changes unless explicitly told otherwise. 
+- Worktree structure should be like <parent_directory>/repo/branch (don't use slashes from branch names) where main is stored in <parent_directory>/repo/main.
 
 ## Code Organization
 
@@ -56,7 +58,7 @@ Design types before implementing. Encode correctness into the type system. Make 
 
 ## Dependency Management
 
-- Freely add dependencies. Use latest releases unless known issues exist.
+- Only add well known dependencies, use releases at least a week old.
 - Pin versions. Remove unused dependencies after refactors.
 
 ## Error Handling

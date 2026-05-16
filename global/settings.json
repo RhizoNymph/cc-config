@@ -1,11 +1,15 @@
 {
   "cleanupPeriodDays": 9999,
+  "env": {
+    "DISABLE_AUTOUPDATER": "1"
+  },
   "attribution": {
     "commit": "",
     "pr": ""
   },
-  "env": {
-    "DISABLE_AUTOUPDATER": "1"
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline-command.sh"
   },
   "sandbox": {
     "enabled": true,
@@ -77,22 +81,36 @@
       }
     ],
     "PreToolUse": [
-        {
-          "matcher": "Bash",
-          "hooks": [
-            {
-              "type": "command",
-              "command": "~/.claude/hooks/check-git-branch.sh"
-            }
-          ]
-        }
-      ]
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/check-git-branch.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/check-gh-pr-remote.sh"
+          }
+        ]
+      }
+    ]
   },
   "enabledPlugins": {
     "rust-analyzer-lsp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "high",
+  "fastMode": true,
+  "awaySummaryEnabled": false,
+  "theme": "dark",
+  "skipAutoPermissionPrompt": true,
+  "agentPushNotifEnabled": true,
   "permissions": {
     "allow": [
       "___FILESYSTEM_NAVIGATION___",
@@ -112,7 +130,6 @@
       "Bash(dirname*)",
       "Bash(basename*)",
       "Bash(realpath*)",
-
       "___FILE_MANIPULATION___",
       "Bash(mkdir*)",
       "Bash(touch*)",
@@ -123,7 +140,6 @@
       "Bash(awk*)",
       "Bash(sed*)",
       "Bash(jq*)",
-
       "___READ_EDIT___",
       "Read(/src/**)",
       "Read(/tests/**)",
@@ -138,7 +154,6 @@
       "Read(tsconfig.json)",
       "Edit(tsconfig.json)",
       "Edit(package.json)",
-
       "___GIT___",
       "Bash(git status)",
       "Bash(git diff*)",
@@ -159,12 +174,10 @@
       "Bash(git tag -l*)",
       "Bash(git tag --list*)",
       "Bash(git merge*)",
-
       "___GITHUB_CLI___",
       "Bash(gh pr create*)",
       "Bash(gh pr list*)",
       "Bash(gh pr view*)",
-
       "___RUST___",
       "Bash(cargo run*)",
       "Bash(cargo build*)",
@@ -173,7 +186,6 @@
       "Bash(cargo clippy*)",
       "Bash(cargo add*)",
       "Bash(cargo tree*)",
-
       "___PYTHON___",
       "Bash(uv add*)",
       "Bash(uv sync*)",
@@ -182,7 +194,6 @@
       "Bash(uv pip install*)",
       "Bash(uvx ruff*)",
       "Bash(.venv/bin/python -m pytest*)",
-
       "___NODE_PNPM___",
       "Bash(pnpm install*)",
       "Bash(pnpm add*)",
@@ -198,7 +209,6 @@
       "Bash(pnpm patch *)",
       "Bash(pnpm patch-commit *)",
       "Bash(pnpm patch-remove *)",
-
       "___WEB___",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:doc.rust-lang.org)",
@@ -210,18 +220,15 @@
       "___PUBLISHING___",
       "Bash(cargo publish*)",
       "Bash(pnpm publish*)",
-
       "___DESTRUCTIVE_FILESYSTEM___",
       "Bash(rm -r*)",
       "Bash(chmod*)",
       "Bash(chown*)",
-
       "___SHELL_ESCAPE_HATCHES___",
       "Bash(eval*)",
       "Bash(bash -c*)",
       "Bash(sh -c*)",
       "Bash(sudo*)",
-
       "___GIT_HISTORY_REWRITING___",
       "Bash(git push --force*)",
       "Bash(git push -f*)",
@@ -230,7 +237,6 @@
       "Bash(git reset --mixed*)",
       "Bash(git commit*--amend*)",
       "Bash(git clean*)",
-
       "___GIT_BRANCH_PROTECTION___",
       "Bash(git branch -D*)",
       "Bash(git add .)",
@@ -242,12 +248,10 @@
       "Bash(git remote set-url*)",
       "Bash(git remote set-head*)",
       "Bash(git remote prune*)",
-
       "___GIT_INTERNALS___",
       "Bash(git filter-branch*)",
       "Bash(git reflog expire*)",
       "Bash(git gc --prune*)",
-
       "___CLAUDE_SETTINGS___",
       "Write(~/.claude/CLAUDE.md)",
       "Write(~/.claude/settings.json)",
@@ -255,6 +259,7 @@
       "Edit(~/.claude/CLAUDE.md)",
       "Edit(~/.claude/settings.json)",
       "Edit(~/.claude/settings.local.json)"
-    ]
+    ],
+    "defaultMode": "auto"
   }
 }
