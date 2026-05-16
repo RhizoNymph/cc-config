@@ -15,6 +15,39 @@ if ! echo "$COMMAND" | grep -qE '\bgh\s+pr\s+create\b'; then
   exit 0
 fi
 
+# If the command chains a `cd <dir>` before `gh pr create` (e.g.
+# `cd path/to/repo && gh pr create`), the PR targets that directory's origin,
+# not the session's pwd. Extract the last `cd` that precedes `gh pr create` so
+# we verify origin in the right repo.
+TARGET_DIR=""
+PRE_GH="${COMMAND%%gh*}"
+CD_RE='(^|[[:space:];&|(])cd[[:space:]]+("([^"]+)"|'\''([^'\'']+)'\''|([^[:space:];&|()]+))'
+SCAN="$PRE_GH"
+while [[ "$SCAN" =~ $CD_RE ]]; do
+  if [ -n "${BASH_REMATCH[3]}" ]; then
+    TARGET_DIR="${BASH_REMATCH[3]}"
+  elif [ -n "${BASH_REMATCH[4]}" ]; then
+    TARGET_DIR="${BASH_REMATCH[4]}"
+  else
+    TARGET_DIR="${BASH_REMATCH[5]}"
+  fi
+  SCAN="${SCAN#*"${BASH_REMATCH[0]}"}"
+done
+if [ -n "$TARGET_DIR" ]; then
+  TARGET_DIR="${TARGET_DIR/#\~/$HOME}"
+  if [ ! -d "$TARGET_DIR" ]; then
+    TARGET_DIR=""
+  fi
+fi
+
+git_config() {
+  if [ -n "$TARGET_DIR" ]; then
+    git -C "$TARGET_DIR" config "$@"
+  else
+    git config "$@"
+  fi
+}
+
 normalize_repo() {
   local v="$1"
   v="${v#\"}"; v="${v%\"}"
@@ -61,7 +94,7 @@ if echo "$COMMAND" | grep -qE '(^|\s)(--repo(=|\s)|-R(=|\s))'; then
     deny "Blocked: \`gh pr create\` uses --repo/-R but the value could not be parsed. Omit the flag to target origin."
   fi
 
-  ORIGIN_URL=$(git config --local --get remote.origin.url 2>/dev/null)
+  ORIGIN_URL=$(git_config --local --get remote.origin.url 2>/dev/null)
   if [ -z "$ORIGIN_URL" ]; then
     deny "Blocked: \`gh pr create\` uses --repo/-R but origin has no URL configured, so the target can't be verified. Omit the flag or set origin."
   fi
@@ -84,7 +117,7 @@ fi
 # `remote.<name>.gh-resolved = base` in the repo's git config. Without --repo/-R,
 # `gh pr create` follows that pointer — so we block if anything other than origin
 # is the resolved base.
-RESOLVED=$(git config --local --get-regexp '^remote\..*\.gh-resolved$' 2>/dev/null \
+RESOLVED=$(git_config --local --get-regexp '^remote\..*\.gh-resolved$' 2>/dev/null \
   | awk '$2 == "base" { sub(/^remote\./, "", $1); sub(/\.gh-resolved$/, "", $1); print $1 }')
 
 for remote in $RESOLVED; do
